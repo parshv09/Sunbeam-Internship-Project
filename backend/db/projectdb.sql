@@ -17,6 +17,7 @@ CREATE TABLE course (
   video_expiry_days INT
 ) AUTO_INCREMENT = 101;
 
+
 CREATE TABLE students (
   reg_no INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(25) NOT NULL,
@@ -64,6 +65,7 @@ INSERT INTO students
 ('Priya Patil', 'priya.patil@gmail.com', 102, '9123456789', NULL),
 ('Amit Verma', 'amit.verma@gmail.com', 103, '9988776655', NULL);
 
+
 INSERT INTO videos
 (course_id, title, description, youtube_url, added_at) VALUES
 (101, 'Java Introduction', 'Overview of Java and JVM',
@@ -77,5 +79,3 @@ INSERT INTO videos
 
 (103, 'React Introduction', 'React basics and JSX',
  'https://youtu.be/bMknfKXIFA8', '2025-03-05');
-
-SELECT * FROM course;
