@@ -1,88 +1,44 @@
 const express = require("express");
 const cryptojs = require("crypto-js");
 const router = express.Router();
-
 const pool = require("../db/pool");
 const result = require("../utils/result");
 
-router.post("/register-to-course", (req, res) => {
-  const { name, email, course_id, mobileNo } = req.body;
+router.put("/change-password",(req,res)=>{
+    const {newPassword,confirmPassword}=req.body
+    if(newPassword!=confirmPassword){
+        res.send("password not matched")
+    }
+    const hashedPassword=cryptojs.SHA256(confirmPassword).toString()
+    sql="update users set password= ? where email=?"
+    pool.query(sql,[hashedPassword,req.user.email],(error,data)=>{
+        res.send(utils.createResult(error,data));
+    })
+})
 
-  if (!name || !email || !course_id || !mobileNo) {
-    return res.send(result.createResult("name, email, course_id, mobileNo are required"));
-  }
 
-  const sql = `
-    INSERT INTO students (name, email, course_id, mobile_number)
-    VALUES (?, ?, ?, ?)
-  `;
+router.get("/my-courses",(req,res)=>{
+    sql="select s.name , c.course_name from students s INNER JOIN course c on s.course_id=c.course_id where s.email=?"
+    pool.query(sql,[req.user.email],(error,data)=>{
+        res.send(utils.createResult(error,data))
+    })
+})
 
-  pool.query(sql, [name, email, course_id, mobileNo], (error, data) => {
-    res.send(result.createResult(error, data));
-  });
-});
-
-router.put("/change-password", (req, res) => {
-  const { newPassword, confirmPassword } = req.body;
-  const email = req.headers.email;
-
-  if (!email) return res.send(result.createResult("email header is required"));
-  if (!newPassword || !confirmPassword)
-    return res.send(result.createResult("newPassword and confirmPassword are required"));
-
-  if (newPassword !== confirmPassword) {
-    return res.send(result.createResult("both new password and confirm password should be same"));
-  }
-
-  const hashPassword = cryptojs.SHA256(confirmPassword).toString();
-
-  const sql = `UPDATE users SET password = ? WHERE email = ?`;
-
-  pool.query(sql, [hashPassword, email], (error, data) => {
-    res.send(result.createResult(error, data));
-  });
-});
-
-router.get("/my-courses", (req, res) => {
-  const reg_no = req.query.reg_no;
-
-  if (!reg_no) return res.send(result.createResult("reg_no query param is required"));
-
-  const sql = `
-    SELECT s.reg_no, s.name, c.course_name
+router.get("/my-course-with-videos",(req,res)=>{
+    sql=`SELECT c.course_name,
+    c.start_date,
+    c.end_date,
+    c.video_expiry_days,
+    v.title,
+    v.youtube_url
     FROM students s
-    JOIN course c ON c.course_id = s.course_id
-    WHERE s.reg_no = ?
-  `;
-
-  pool.query(sql, [reg_no], (error, data) => {
-    res.send(result.createResult(error, data));
-  });
-});
-
-router.get("/my-course-with-videos", (req, res) => {
-  const reg_no = req.query.reg_no;
-
-  if (!reg_no) return res.send(result.createResult("reg_no query param is required"));
-
-  const sql = `
-    SELECT 
-      s.reg_no,
-      s.name,
-      c.course_name,
-      v.video_id,
-      v.title,
-      v.description,
-      v.youtube_url
-    FROM students s
-    JOIN course c ON c.course_id = s.course_id
+    JOIN course c ON s.course_id = c.course_id
     JOIN videos v ON v.course_id = c.course_id
-    WHERE s.reg_no = ?
-  `;
-
-  pool.query(sql, [reg_no], (error, data) => {
-    res.send(result.createResult(error, data));
-  });
-});
+    WHERE s.email = ?
+    AND (v.added_at + INTERVAL c.video_expiry_days DAY) >= CURDATE();`
+  pool.query(sql,[req.user.email],(error,data)=>{
+    res.send(utils.createResult(error,data))
+  })
+})
 
 module.exports = router;
