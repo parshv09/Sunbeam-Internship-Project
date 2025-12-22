@@ -42,7 +42,6 @@ CREATE TABLE videos (
     FOREIGN KEY (course_id) REFERENCES course(course_id)
 );
 
-
 INSERT INTO users (email, password, role) VALUES
 ('rahul.sharma@gmail.com', 'rahul123', 'student'),
 ('priya.patil@gmail.com', 'priya123', 'student'),
