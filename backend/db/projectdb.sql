@@ -1,49 +1,81 @@
 CREATE DATABASE internship_project_db;
-
 USE internship_project_db;
 
-CREATE TABLE users (email VARCHAR(40) PRIMARY KEY, password varchar(40),role ENUM('student','admin'));
+CREATE TABLE users (
+  email VARCHAR(40) PRIMARY KEY,
+  password VARCHAR(40),
+  role ENUM('student','admin')
+);
 
-CREATE TABLE course(course_id INT PRIMARY KEY , course_name VARCHAR(40),description VARCHAR(100),fees INT,start_date DATE,end_date DATE, video_expiry_days INT);
+CREATE TABLE course (
+  course_id INT AUTO_INCREMENT PRIMARY KEY,
+  course_name VARCHAR(40),
+  description VARCHAR(100),
+  fees INT,
+  start_date DATE,
+  end_date DATE,
+  video_expiry_days INT
+) AUTO_INCREMENT = 101;
 
 CREATE TABLE students (
-  reg_no INT PRIMARY KEY,
+  reg_no INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(25) NOT NULL,
   email VARCHAR(255) NOT NULL,
   course_id INT,
   mobile_number VARCHAR(20),
   profile_pic BLOB,
-  CONSTRAINT fk_students_user_email FOREIGN KEY (email) REFERENCES users(email),
-  CONSTRAINT fk_students_course FOREIGN KEY (course_id) REFERENCES course(course_id)
+  CONSTRAINT fk_students_user_email 
+    FOREIGN KEY (email) REFERENCES users(email),
+  CONSTRAINT fk_students_course 
+    FOREIGN KEY (course_id) REFERENCES course(course_id)
 );
 
 CREATE TABLE videos (
-    video_id INT AUTO_INCREMENT PRIMARY KEY,
-    course_id INT NOT NULL,
-    title VARCHAR(100),
-    description VARCHAR(255),
-    youtube_url VARCHAR(255),
-    added_at DATE,
-    CONSTRAINT fk_co FOREIGN KEY (course_id) REFERENCES course(course_id)
+  video_id INT AUTO_INCREMENT PRIMARY KEY,
+  course_id INT NOT NULL,
+  title VARCHAR(100),
+  description VARCHAR(255),
+  youtube_url VARCHAR(255),
+  added_at DATE,
+  CONSTRAINT fk_co 
+    FOREIGN KEY (course_id) REFERENCES course(course_id)
 );
 
-
 INSERT INTO users (email, password, role) VALUES
-('john@gmail.com', 'john123', 'student'),
-('emma@gmail.com', 'emma123', 'student'),
-('admin@gmail.com', 'admin123', 'admin');
+('rahul.sharma@gmail.com', 'rahul123', 'student'),
+('priya.patil@gmail.com', 'priya123', 'student'),
+('amit.verma@gmail.com', 'amit123', 'student'),
+('admin@sunbeam.in', 'admin123', 'admin');
 
-INSERT INTO course (course_id, course_name, description, fees, start_date, end_date, video_expiry_days) VALUES
-(101, 'Full Stack Development', 'Learn frontend + backend development.', 15000, '2025-01-10', '2025-04-10', 90),
-(102, 'Data Science Bootcamp', 'Python, ML, Statistics, Projects', 18000, '2025-02-01', '2025-05-01', 120),
-(103, 'Web Designing', 'HTML, CSS, JS and UI/UX basics', 8000, '2025-01-20', '2025-03-20', 60);
+INSERT INTO course 
+(course_name, description, fees, start_date, end_date, video_expiry_days) VALUES
+('Core Java Programming', 'Java fundamentals and OOP concepts', 30000,
+ '2025-01-15', '2025-05-15', 60),
 
-INSERT INTO students (reg_no, name, email, course_id, mobile_number, profile_pic) VALUES
-(1, 'John Doe', 'john@gmail.com', 101, '9876543210', NULL),
-(2, 'Emma Watson', 'emma@gmail.com', 102, '9123456780', NULL);
+('Python for Data Science', 'Python, NumPy, Pandas, ML basics', 35000,
+ '2025-02-01', '2025-06-01', 90),
 
-INSERT INTO videos (course_id, title, description, youtube_url, added_at) VALUES
-(101, 'HTML Basics', 'Introduction to HTML', 'https://youtu.be/dD2EISBDjWM', '2025-01-12'),
-(101, 'CSS Basics', 'Introduction to CSS styling', 'https://youtu.be/yfoY53QXEnI', '2025-01-13'),
-(102, 'Python for Data Science', 'Python basics for beginners', 'https://youtu.be/_uQrJ0TkZlc', '2025-02-03'),
-(103, 'UI/UX Intro', 'Basics of designing web experiences', 'https://youtu.be/C9Z0pXnOx0Q', '2025-01-25');
+('MERN Stack Development', 'MongoDB, Express, React, Node.js', 40000,
+ '2025-03-01', '2025-08-01', 120);
+
+INSERT INTO students
+(name, email, course_id, mobile_number, profile_pic) VALUES
+('Rahul Sharma', 'rahul.sharma@gmail.com', 101, '9876543210', NULL),
+('Priya Patil', 'priya.patil@gmail.com', 102, '9123456789', NULL),
+('Amit Verma', 'amit.verma@gmail.com', 103, '9988776655', NULL);
+
+INSERT INTO videos
+(course_id, title, description, youtube_url, added_at) VALUES
+(101, 'Java Introduction', 'Overview of Java and JVM',
+ 'https://youtu.be/eIrMbAQSU34', '2025-01-16'),
+
+(101, 'OOP Concepts', 'Encapsulation, Inheritance, Polymorphism',
+ 'https://youtu.be/BSVKUk58K6U', '2025-01-18'),
+
+(102, 'Python Basics', 'Python syntax and variables',
+ 'https://youtu.be/rfscVS0vtbw', '2025-02-03'),
+
+(103, 'React Introduction', 'React basics and JSX',
+ 'https://youtu.be/bMknfKXIFA8', '2025-03-05');
+
+SELECT * FROM course;
