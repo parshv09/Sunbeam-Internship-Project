@@ -6,17 +6,28 @@ const cryptojs=require("crypto-js")
 const jwt=require("jsonwebtoken")
 
 
-
-router.post("/auth/register",(req,res)=>{
-    const {email ,password, role}=req.body
-    if(role!="admin" && role!="student"){
-        res.send(utils.createResult("invalid role"))
+router.post("/register-to-course",(req,res)=>{
+    if(!req.body){
+        res.send("please enter all fields")
     }
-    const hashPassword=cryptojs.SHA256(password).toString()
-    sql="insert into users(email,password,role) values(?,?,?)"
-    pool.query(sql,[email,hashPassword,role],(error,data)=>{
-        res.send(utils.createResult(error,data))
-    })
+    const  {courseId, email ,name, mobileNo}=req.body
+    sql="select * from users where email=?"
+    pool.query(sql,[req.body.email],(error,data)=>{
+        if(data.length==0){
+            pass="sunbeam123"
+            s="insert into users(email,password,role) values(?,?,?)"
+            pool.query(s,[email,pass,"student"],(error,data)=>{
+                if(error){
+                    res.send(utils.createResult(error))
+                }
+            })  
+        }
+            sql="insert into students (course_id, email, name ,mobile_number) values (?,?,?,?)"
+            pool.query(sql,[courseId,email,name,mobileNo],(error,data)=>{
+                res.send(utils.createResult(error,"course registration successfully"))
+            })
+        
+    });
 })
 router.post("/auth/login",(req,res)=>{
     const {email,password}=req.body
