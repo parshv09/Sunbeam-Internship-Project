@@ -3,6 +3,36 @@ const router=express.Router()
 const pool=require("../db/pool")
 const utils=require("../utils/result")
 
+
+router.get("/course/all-courses",(req,res)=>{
+    const {start_date,end_date}=req.query
+    sql="select * from course where start_date BETWEEN ? and ?"
+    pool.query(sql,[start_date,end_date],(error,data)=>{
+        if(data.length==0){
+            res.send("course not found between selected period")
+        }else{
+            res.send(utils.createResult(error,data))
+        }
+    })
+})
+
+router.post("/course/add",(req,res)=>{
+    const {courseName, description, fees,startDate, endDate, videoExpireDays}=req.body
+    sql="insert into course( course_name, description, fees, start_date, end_date, video_expiry_days) values (?,?,?,?,?,?)"
+    pool.query(sql,[courseName, description, fees,startDate, endDate, videoExpireDays],(error,data)=>{
+        res.send(utils.createResult(error,data))
+    })
+})
+
+router.put("/course/update/:courseId",(req,res)=>{
+    const course_id=req.params.courseId
+    const {courseName,description, fees, startDate, endDate,videoExpireDays}=req.body
+    sql="update course set course_name=?,description=?, fees=?, start_date=?, end_date=? ,video_expiry_days=? where course_id=?"
+    pool.query(sql,[courseName,description, fees, startDate, endDate,videoExpireDays,course_id],(error,data)=>{
+        res.send(utils.createResult(error,data))
+    })
+})
+
 router.put("/video/update/:videoId",(req,res)=>{
     const videoId=req.params.videoId;
     const {courseId, title, youtubeURL, description}=req.body;
