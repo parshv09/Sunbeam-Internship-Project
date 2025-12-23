@@ -2,7 +2,7 @@ const express = require("express");
 const cryptojs = require("crypto-js");
 const router = express.Router();
 const pool = require("../db/pool");
-const result = require("../utils/result");
+const utils = require("../utils/result");
 
 router.put("/change-password",(req,res)=>{
     const {newPassword,confirmPassword}=req.body
