@@ -33,6 +33,35 @@ router.put("/course/update/:courseId",(req,res)=>{
     })
 })
 
+router.delete("/course/delete/:courseId",(req,res)=>{
+    const course_id=req.params.courseId
+    sql="delete from course where course_id=?"
+    pool.query(sql,[course_id],(error,data)=>{
+        res.send(utils.createResult(error,data))
+    })
+})
+
+router.get("/video/all-videos",(req,res)=>{
+    const {courseId}=req.query
+    sql="select * from videos where course_id=?"
+    pool.query(sql,[courseId],(error,data)=>{
+        if(data.length==0){
+            res.send("videos not available")
+        }else{
+            res.send(utils.createResult(error,data))
+        }
+    })
+})
+
+router.post("/video/add",(req,res)=>{
+    const {courseId, title, youtubeURL,description}=req.body;
+    sql="insert into videos(course_id,title,youtube_url,description) values(?,?,?,?)"
+    pool.query(sql,[courseId, title, youtubeURL,description],(error,data)=>{
+        res.send(utils.createResult(error,data))
+    })
+})
+
+
 router.put("/video/update/:videoId",(req,res)=>{
     const videoId=req.params.videoId;
     const {courseId, title, youtubeURL, description}=req.body;
