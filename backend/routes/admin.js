@@ -35,9 +35,26 @@ router.put("/course/update/:courseId",(req,res)=>{
 
 router.delete("/course/delete/:courseId",(req,res)=>{
     const course_id=req.params.courseId
-    sql="delete from course where course_id=?"
+    sql="delete from students where course_id=?"
     pool.query(sql,[course_id],(error,data)=>{
-        res.send(utils.createResult(error,data))
+        if(error){
+           return res.send(utils.createResult(error))
+        }else{
+            sql="delete from videos where course_id=?"
+            pool.query(sql,[course_id],(error,data)=>{
+                if(error){
+                    return res.send(utils.createResult(error))
+                }else{
+                     sql="delete from course where course_id=?"
+                        pool.query(sql,[course_id],(error,data)=>{
+                            if(data.affectedRows==0){
+                                return res.status(403).send(utils.createResult("course not found"))
+                            }
+                           return res.send(utils.createResult(error,"course deleted successfully"))
+                        })
+                }
+            })
+        }
     })
 })
 
