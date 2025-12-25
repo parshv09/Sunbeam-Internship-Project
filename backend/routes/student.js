@@ -4,6 +4,13 @@ const router = express.Router();
 const pool = require("../db/pool");
 const utils = require("../utils/result");
 
+
+router.get("/",(req,res)=>{
+    sql="select * from students where email=?"
+    pool.query(sql,[req.user.email],(error,data)=>{
+        res.send(utils.createResult(error,data[0]))
+    })
+})
 router.put("/change-password",(req,res)=>{
     const {newPassword,confirmPassword}=req.body
     if(newPassword!=confirmPassword){

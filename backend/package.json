@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
     "cryptojs": "^2.5.3",
     "dotenv": "^17.2.3",
