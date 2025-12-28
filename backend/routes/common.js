@@ -19,7 +19,7 @@ router.post("/register-to-course",(req,res)=>{
             pool.query(s,[email,pass,"student"],(error,data)=>{
                 if(error){
                    return res.send(utils.createResult(error))
-                }
+                }       
             })  
         }
             sql="insert into students (course_id, email, name ,mobile_number) values (?,?,?,?)"
@@ -62,6 +62,15 @@ router.post("/auth/login",(req,res)=>{
 router.get("/course/all-active-courses",(req,res)=>{
     const sql="SELECT * FROM course where (start_date >= CURDATE()) or (CURDATE() BETWEEN start_date AND end_date)"
     pool.query(sql,(error,data)=>{
+        res.send(utils.createResult(error,data))
+    })
+})
+
+
+router.get("/course/:courseId",(req,res)=>{
+    const course_id=req.params.courseId
+    const sql="SELECT * FROM course where course_id=?"
+    pool.query(sql,[course_id],(error,data)=>{
         res.send(utils.createResult(error,data))
     })
 })

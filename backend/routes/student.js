@@ -25,7 +25,7 @@ router.put("/change-password",(req,res)=>{
 
 
 router.get("/my-courses",(req,res)=>{
-    sql="select s.name , c.course_name from students s INNER JOIN course c on s.course_id=c.course_id where s.email=?"
+    sql="select * from students s INNER JOIN course c on s.course_id=c.course_id where s.email=?"
     pool.query(sql,[req.user.email],(error,data)=>{
         res.send(utils.createResult(error,data))
     })
