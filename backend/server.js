@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(cors())
 app.use(commonRouter)
 app.use("/admin",auth,allowedRoles("admin"),adminRouter)
-app.use("/student",auth,allowedRoles("student"),studentRouter)
+app.use("/student",auth,studentRouter)
 app.listen(4000,()=>{
     console.log("server is running on port 4000")
 })

@@ -8,11 +8,9 @@ router.get("/course/all-courses",(req,res)=>{
     const {start_date,end_date}=req.query
     sql="select * from course where start_date BETWEEN ? and ?"
     pool.query(sql,[start_date,end_date],(error,data)=>{
-        if(data.length==0){
-            res.send("course not found between selected period")
-        }else{
+
+
             res.send(utils.createResult(error,data))
-        }
     })
 })
 
@@ -72,10 +70,20 @@ router.get("/video/all-videos",(req,res)=>{
 
 router.post("/video/add",(req,res)=>{
     const {courseId, title, youtubeURL,description}=req.body;
-    sql="insert into videos(course_id,title,youtube_url,description) values(?,?,?,?)"
+    sql="insert into videos(course_id,title,youtube_url,description,added_at) values(?,?,?,?,CURDATE())"
     pool.query(sql,[courseId, title, youtubeURL,description],(error,data)=>{
         res.send(utils.createResult(error,data))
     })
+})
+
+
+router.get("/video/:videoId", (req, res) => {
+  const videoId = req.params.videoId
+  const sql = "SELECT * FROM videos WHERE video_id=?"
+
+  pool.query(sql, [videoId], (error, data) => {
+    res.send(utils.createResult(error, data))
+  })
 })
 
 
@@ -99,7 +107,7 @@ router.delete("/video/delete/:videoId",(req,res)=>{
 
 router.get("/enrolled-students",(req,res)=>{
     const course_id=req.query.course_id;
-    sql="select * from students where course_id= ?"
+    sql="select * from students natural join course where course_id= ?"
     pool.query(sql,[course_id],(error,data)=>{
         res.send(utils.createResult(error,data))
     })
