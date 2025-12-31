@@ -1,0 +1,171 @@
+/* StudentPortal.css */
+
+.student-portal {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+}
+
+.hero-stats {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  padding: 10px;
+}
+
+/* Course Cards */
+.course-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(13, 110, 253, 0.1) !important;
+}
+
+.badge {
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge.popular {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.badge.new {
+  background-color: #20c997;
+  color: white;
+}
+
+.badge.featured {
+  background-color: #ffd43b;
+  color: #212529;
+}
+
+/* Enrollment Steps */
+.step {
+  background: white;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+}
+
+.step-icon {
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+}
+
+/* Benefits */
+.benefit-icon {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+}
+
+.benefit-item {
+  transition: transform 0.3s ease;
+}
+
+.benefit-item:hover {
+  transform: translateX(5px);
+}
+
+/* Footer */
+.footer a:hover {
+  color: #0d6efd !important;
+}
+
+.social-links a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: #0d6efd;
+  transform: translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .step {
+    margin-bottom: 20px;
+  }
+}
+
+/* StudentPortal.css - Add these styles */
+
+/* Navbar spacing and alignment */
+.navbar {
+  padding: 0.8rem 0;
+}
+
+.navbar-nav .nav-item {
+  padding: 0 0.5rem;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #0d6efd !important;
+}
+
+/* Make login button stand out */
+.navbar .btn-primary {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.navbar .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+/* Center the nav items */
+.navbar-nav.mx-auto {
+  flex: 1;
+  justify-content: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .navbar-nav.mx-auto {
+    margin: 1rem 0;
+    text-align: center;
+  }
+  
+  .navbar-nav .nav-item {
+    padding: 0.5rem 0;
+  }
+  
+  .d-flex.justify-content-end {
+    justify-content: center !important;
+    margin-top: 1rem;
+  }
+}
+  
