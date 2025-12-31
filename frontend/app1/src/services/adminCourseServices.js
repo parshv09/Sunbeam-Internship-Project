@@ -1,6 +1,43 @@
 import axios from "axios";
 import config from "./config";
 
+export async function getAllCourses(token, startDate, endDate) {
+  const url = `${config.URL}/admin/course/all-courses?start_date=${startDate}&end_date=${endDate}`;
+  const headers = { token };
+  const res = await axios.get(url, { headers });
+  return res.data;
+}
+
+// ADD course (backend expects these exact keys)
+export async function addCourse(token, course) {
+  const url = `${config.URL}/admin/course/add`;
+  const headers = { token };
+  const res = await axios.post(url, course, { headers });
+  return res.data;
+}
+
+// UPDATE course
+export async function updateCourse(token, courseId, course) {
+  const url = `${config.URL}/admin/course/update/${courseId}`;
+  const headers = { token };
+  const res = await axios.put(url, course, { headers });
+  return res.data;
+}
+
+// DELETE course
+export async function deleteCourse(token, courseId) {
+  const url = `${config.URL}/admin/course/delete/${courseId}`;
+  const headers = { token };
+  const res = await axios.delete(url, { headers });
+  return res.data;
+}
+
+// (Optional but useful) GET single course (common router)
+export async function getCourseById(courseId) {
+  const url = `${config.URL}/course/${courseId}`;
+  const res = await axios.get(url);
+  return res.data;
+}
 export async function getVideoDetails(token,courseId) {
     const URL=config.URL+`/admin/video/all-videos`;
     const headers={token}
