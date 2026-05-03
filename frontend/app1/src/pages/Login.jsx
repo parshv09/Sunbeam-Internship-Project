@@ -4,14 +4,14 @@ import "../App.css";
 import { loginUser } from "../services/userServices";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import { loginContext } from "../App";
+import { LoginContext } from "../context/LoginConext";
 
 function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { loginStatus,setLoginStatus }=useContext(loginContext)
+  const { loginStatus,setLoginStatus ,role, setRole}=useContext(LoginContext)
   const signin = async (e) => {
     if (email.length == 0) {
       toast.warn("email is required");
@@ -24,10 +24,21 @@ function Login() {
     const result = await loginUser(email, password);
     console.log(result);
     if (result.status == "success") {
+      console.log(result.data)
       sessionStorage.setItem('token',result.data.token)
       setLoginStatus(true)
-      toast.success("login successful");
-      navigate("/home");
+      if(result.data.role=="student"){
+              setRole(result.data.role)
+              console.log(loginStatus)
+              toast.success("login successful");
+              navigate("/home");
+      }
+      if(result.data.role=="admin"){
+        setRole(result.data.role)
+              console.log(loginStatus)
+              toast.success("login successful");
+              navigate("/admin");
+      }
     } else {
       toast.error("login failed");
     }

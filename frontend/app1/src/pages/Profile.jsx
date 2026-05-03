@@ -1,16 +1,13 @@
-import { use, useContext, useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import { getUser } from '../services/userServices'
 import Register from './Register';
 import { useNavigate } from 'react-router';
-import { LoginContext } from '../App';
-import AdminNavbar from '../components/AdminNavbar';
 function Profile() {
   const [name,setName]=useState("")
   const [email,setEmail]=useState("")
   const [mobile ,setMobile]=useState("")
   const navigate=useNavigate()
-  const {role}=useContext(LoginContext)
 useEffect(()=>{
   console.log("profile loaded")
   getUserProfile()
@@ -30,11 +27,8 @@ useEffect(()=>{
     navigate("/change-password")
   }
   return (
-    <div>{role=="admin" && <AdminNavbar />
-
-    }
-    {role=="student" && <Navbar/>}
-      
+    <div>
+      <Navbar/>
         <div className='container'>
                 <div className='mt-3 mb-3'>
                     <input type="text" className="form-control" id="inputEmail" value={email}  onChange={e => setEmail(e.target.value)} />
@@ -44,10 +38,10 @@ useEffect(()=>{
                     <input type="tel" className="form-control ms-3" id="inputMobile" value={mobile} onChange={e => setMobile(e.target.value)} />
                 </div>  
 
-                {/* <div>
+                <div>
                   <label>Do you want to change your password? </label><label>... </label>
                     <button className="btn btn-success btn-sm" onClick={resetPassword}>Change Password</button>
-                </div> */}
+                </div>
             </div>
     </div>
   )

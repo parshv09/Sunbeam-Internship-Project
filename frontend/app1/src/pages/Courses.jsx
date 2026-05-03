@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getRegisteredCourses } from "../services/courseServices";
-import { Link, useNavigate } from "react-router";
 function Courses() {
   const [courses, setCourses] = useState([]);
-  const navigate= useNavigate()
   useEffect(() => {
     getMyCourse();
-    
   }, []);
   const getMyCourse = async () => {
     const token = sessionStorage.getItem("token");
@@ -15,23 +12,22 @@ function Courses() {
     console.log(result.data);
     if (result.status == "success") {
       setCourses(result.data);
-      console.log("COURSE OBJECT:", courses);
+      console.log("" + courses);
     }
   };
   return (
     <div>
       <Navbar />
-     {console.log(courses)}
+      <section id="courses" className="courses ">
         <div className="container py-5">
        <div className="text-center mb-5">
           <h2 className="section-title mb-3">
-            My Enrolled <span className="text-gradient">Courses</span>
+            My Entrolled <span className="text-gradient">Courses</span>
           </h2>
         </div>
+
           <div className="row g-4">
-            {courses.map((course) =>{ console.log("FINAL COURSE OBJECT:", course)
-            return (
-             
+            {courses.map((course) => (
               <div key={course.course_id} className="col-md-6 col-lg-4">
                 <div className="course-card card h-100 border-0 shadow-sm">
                   <div className="card-body p-4">
@@ -49,7 +45,7 @@ function Courses() {
                     
                       <button
                         className="enroll-button"
-                        onClick={() => navigate(`/videos/${course.course_id}`)}
+                        onClick={() => navigate(`/register/${course.course_id}`)}
                       >
                         <i className="fas fa-arrow-right me-2"></i>
                           Start Learning
@@ -57,10 +53,10 @@ function Courses() {
                   </div>
                 </div>
               </div>
-            )})}
+            ))}
           </div>
         </div>
-  
+      </section>
     </div>
   );
 }

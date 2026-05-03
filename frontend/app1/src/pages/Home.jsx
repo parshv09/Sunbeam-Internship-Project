@@ -2,20 +2,20 @@ import { useContext, useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import { getActiveCourses } from '../services/courseServices'
 import { useNavigate } from 'react-router'
-import { LoginContext } from "../App";
-import img from "../helper/images"
-
+import { LoginContext } from '../context/LoginConext'
+import java from "../assets/java.png"
+import mern from "../assets/mern.jpeg"
+const images=[]
 let imageIndex=0
 function Home() {
   const {loginStatus,setLoginStatus,role}=useContext(LoginContext)
-  const [images,setImages]=useState([])
   const [courses,setCourses]=useState([])
   const navigate=useNavigate()
   useEffect(()=>{
     console.log(loginStatus)
     console.log(role)
     getCourses()
-  setImages(img)},[])
+  images.push(java);images.push(mern)},[])
 
   const getCourses=async ()=>{
     const result=await getActiveCourses()
@@ -44,13 +44,13 @@ function Home() {
         </div>
 
         {/* Courses Grid */}
-        <div className="row gy-6 ">
+        <div className="row g-4">
           {courses.map((course) => {
             const courseImage = images[imageIndex % images.length];
             imageIndex++;
             
             return (
-              <div key={course.course_id} className="col-md-4  col-lg-4 mb-4">
+              <div key={course.course_id} className="col-md-6 col-lg-4">
                 <div className="course-card">
                   {/* Image Container */}
                   <div className="course-image-container">

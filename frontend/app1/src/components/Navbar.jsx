@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { getUser } from "../services/userServices";
-import { LoginContext } from "../App";
+import { LoginContext } from "../context/LoginConext";
 import { Dropdown, Collapse, initMDB } from "mdb-ui-kit";
 import "../assets/navbar.css"
 initMDB({ Dropdown, Collapse });
@@ -141,29 +141,11 @@ function Navbar() {
                 </Link>
 
                 <div className="dropdown-divider"></div>
-                 <Link 
-                  className="dropdown-item elegant-dropdown-item"
-                  to="/change-password"
-                  onClick={() => setOpen(false)}
-                >
-                  <div className="item-icon">
-                    <i className="bi bi-person"></i>
-                  </div>
-                  <div className="item-content">
-                    <div className="item-title">Change Password</div>
-                    
-                  </div>
-                </Link>
-
-                <div className="dropdown-divider"></div>
-
 
                 <button
                   className="dropdown-item elegant-dropdown-item logout-item"
                   onClick={(e) => {
-                    sessionStorage.clear()
-                     setLoginStatus(false)
-                     setRole("")
+                    e.preventDefault();
                     navigate("/");
                   }}
                 >

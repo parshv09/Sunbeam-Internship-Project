@@ -4,13 +4,14 @@ import "../assets/course.css";
 import "../assets/landing.css";
 import { Link, useNavigate } from "react-router";
 import { getActiveCourses } from "../services/courseServices";
-import img from "../helper/images"
+import java from "../assets/java.png"
+import mern from "../assets/mern.jpeg"
+const images=[]
 let imageIndex=0
 const LandingPage = () => {
   const [courses,setCourses]=useState([])
-  const [images,setImages]=useState([])
   const navigate=useNavigate()
-  useEffect(()=>{getCourses();setImages(img)},[])
+  useEffect(()=>{getCourses(); images.push(java);images.push(mern)},[])
 
   const getCourses=async ()=>{
     const result=await getActiveCourses()
@@ -83,6 +84,25 @@ const LandingPage = () => {
                         </a>
                         
                     </div>
+                    
+                   
+                    {/* <div className="mt-5">
+                        <p className="text-muted small mb-2">Trusted by leading companies</p>
+                        <div className="d-flex flex-wrap gap-4">
+                            <div className="trust-item">
+                                <i className="fas fa-check-circle text-success me-1"></i>
+                                <span className="small">Expert instructors</span>
+                            </div>
+                            <div className="trust-item">
+                                <i className="fas fa-check-circle text-success me-1"></i>
+                                <span className="small">Certificate upon completion</span>
+                            </div>
+                            <div className="trust-item">
+                                <i className="fas fa-check-circle text-success me-1"></i>
+                                <span className="small">Flexible learning schedule</span>
+                            </div>
+                        </div>
+                    </div> */}
                 </div>
                 
                 <div className="col-lg-6 hero-visual mt-5 mt-lg-0">
@@ -183,7 +203,7 @@ const LandingPage = () => {
             imageIndex++;
             
             return (
-              <div key={course.course_id} className="col-md-6 col-lg-4 mb-4">
+              <div key={course.course_id} className="col-md-6 col-lg-4">
                 <div className="course-card">
                   {/* Image Container */}
                   <div className="course-image-container">
