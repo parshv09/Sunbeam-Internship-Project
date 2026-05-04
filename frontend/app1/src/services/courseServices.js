@@ -21,3 +21,20 @@ export async function getCourseDetails(courseId) {
     const response=await axios.get(URL);
     return response.data
 }
+
+export async function getCoursesWithVideos(token,courseId) {
+    const URL=config.URL+"/student/my-course-with-videos"
+    const headers={token}
+    const response = await axios.get(URL, {
+        headers: {
+            token: token   
+        },
+        params: {
+            course_id : courseId
+        }
+    })
+
+    return response.data;
+    
+}
+
