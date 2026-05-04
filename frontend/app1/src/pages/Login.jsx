@@ -4,7 +4,7 @@ import "../App.css";
 import { loginUser } from "../services/userServices";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import { LoginContext } from "../context/LoginConext";
+import { LoginContext } from "../App";
 
 function Login() {
 
@@ -44,48 +44,53 @@ function Login() {
     }
   };
   return (
-    <div className="d-flex align-items-center justify-content-center vh-100 my-5 pt-5">
-      <div className="border p-4 rounded w-25 shadow bg-white">
-        <h3 className="text-center mb-4">Login</h3>
-
-        <div className="mb-3">
-          <label className="form-label">Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            placeholder="Enter Email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-          <div className="invalid-feedback">
-            Please enter a valid email address.
+    <div className="d-flex align-items-center justify-content-center min-vh-100 px-3 py-5" style={{ background: "var(--bg-gradient)" }}>
+      <div className="card shadow-lg p-4 p-md-5 w-100 border-0" style={{ maxWidth: "440px", backgroundColor: "rgba(255, 255, 255, 0.85)", backdropFilter: "blur(12px)", borderRadius: "var(--radius)" }}>
+        <div className="text-center mb-4">
+          <div className="d-inline-flex align-items-center justify-content-center mb-3 bg-primary bg-opacity-10 rounded-circle" style={{ width: "64px", height: "64px" }}>
+            <i className="fa-solid fa-user text-primary" style={{ fontSize: "1.75rem" }}></i>
           </div>
+          <h2 className="fw-bold mb-1" style={{ color: "var(--dark)" }}>Welcome Back</h2>
+          <p className="text-muted small">Please enter your credentials to login</p>
         </div>
 
         <div className="mb-3">
+          <label className="form-label">Email Address</label>
+          <div className="input-group">
+            <span className="input-group-text bg-white border-end-0" style={{ borderRadius: "10px 0 0 10px" }}>
+              <i className="fas fa-envelope text-muted"></i>
+            </span>
+            <input
+              type="email"
+              className="form-control border-start-0"
+              placeholder="name@example.com"
+              style={{ borderRadius: "0 10px 10px 0" }}
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && signin()}
+            />
+          </div>
+        </div>
+
+        <div className="mb-4">
           <label className="form-label">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Password"
-            onChange={(e) => {
-            setPassword(e.target.value);
-            }}
-          />
-          <div className="invalid-feedback">
-            Password must be at least 6 characters long.
+          <div className="input-group">
+            <span className="input-group-text bg-white border-end-0" style={{ borderRadius: "10px 0 0 10px" }}>
+              <i className="fas fa-lock text-muted"></i>
+            </span>
+            <input
+              type="password"
+              className="form-control border-start-0"
+              placeholder="Your password"
+              style={{ borderRadius: "0 10px 10px 0" }}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && signin()}
+            />
           </div>
         </div>
 
-        <button className="btn btn-primary w-100" onClick={signin}>
-          Login
+        <button className="btn btn-primary w-100 py-2 fw-bold" onClick={signin}>
+          Sign In
         </button>
-
-        <div className="d-flex justify-content-center align-items-center mt-3">
-          <span className="me-2">Don't have an account?</span>
-          <a href="/register">Register here</a>
-        </div>
       </div>
     </div>
   );

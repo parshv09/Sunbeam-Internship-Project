@@ -1,6 +1,304 @@
-body {
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-weight: bolder;
-  background: linear-gradient(to right, #e5eaee, #e9ecef);
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+:root {
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --secondary: #0d9488;
+  --accent: #d946ef;
+  --dark: #0f172a;
+  --light: #f8fafc;
+  --muted: #64748b;
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --radius: 12px;
+  --shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01);
+  --shadow-hover: 0 20px 35px -5px rgba(99, 102, 241, 0.15), 0 12px 12px -6px rgba(99, 102, 241, 0.05);
 }
-    
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  background: var(--bg-gradient) !important;
+  color: var(--dark) !important;
+  font-weight: 500 !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  line-height: 1.6;
+}
+
+/* Glassmorphism / Vibrant Layout Helpers */
+.container {
+  max-width: 1200px !important;
+}
+
+/* Card Improvements */
+.card, .course-card {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow) !important;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease !important;
+  overflow: hidden;
+}
+
+.card:hover, .course-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: var(--shadow-hover) !important;
+}
+
+.card-title, .course-name {
+  color: var(--dark) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+}
+
+/* Input Styles */
+.form-control, .form-select {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1.5px solid rgba(226, 232, 240, 1) !important;
+  border-radius: 10px !important;
+  padding: 12px 16px !important;
+  font-size: 0.95rem !important;
+  color: var(--dark) !important;
+  transition: all 0.25s ease !important;
+}
+
+.form-control:focus, .form-select:focus {
+  background: #ffffff !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12) !important;
+}
+
+/* Form Label Styles */
+.form-label {
+  font-weight: 600 !important;
+  color: var(--dark) !important;
+  font-size: 0.875rem !important;
+  margin-bottom: 6px !important;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 10px !important;
+  padding: 11px 24px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2px !important;
+  font-size: 0.95rem !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03) !important;
+}
+
+.btn-primary, .enroll-button {
+  background: linear-gradient(135deg, var(--primary) 0%, #4338ca 100%) !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover, .enroll-button:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3) !important;
+}
+
+.btn-dark {
+  background: var(--dark) !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+.btn-dark:hover {
+  background: #1e293b !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15) !important;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+.btn-success:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25) !important;
+}
+
+.btn-info {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%) !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+.btn-info:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 20px rgba(6, 182, 212, 0.25) !important;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+.btn-warning:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 20px rgba(245, 158, 11, 0.25) !important;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 20px rgba(239, 68, 68, 0.25) !important;
+}
+
+/* Navbars */
+.elegant-navbar, .navbar {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02) !important;
+  padding: 16px 0 !important;
+}
+
+.navbar-brand, .logo-text {
+  font-weight: 800 !important;
+  font-size: 1.25rem !important;
+  background: linear-gradient(135deg, var(--primary) 0%, #4338ca 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.nav-link {
+  font-weight: 600 !important;
+  color: var(--dark) !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  transition: all 0.25s ease !important;
+}
+
+.nav-link:hover {
+  color: var(--primary) !important;
+  background: rgba(99, 102, 241, 0.08) !important;
+}
+
+.nav-link i {
+  color: var(--primary) !important;
+}
+
+/* Table Style */
+.table {
+  border-collapse: separate !important;
+  border-spacing: 0 8px !important;
+  background: transparent !important;
+}
+
+.table thead th {
+  background-color: var(--dark) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.5px !important;
+  padding: 14px 16px !important;
+  border: none !important;
+}
+
+.table thead th:first-child {
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
+.table thead th:last-child {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+
+.table tbody tr {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow) !important;
+  transition: all 0.2s ease !important;
+}
+
+.table tbody tr:hover {
+  background: #ffffff !important;
+  transform: scale(1.005) translateY(-2px) !important;
+  box-shadow: 0 12px 24px -10px rgba(0,0,0,0.06) !important;
+}
+
+.table tbody td {
+  padding: 16px !important;
+  border-top: 1px solid #f1f5f9 !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  vertical-align: middle !important;
+  color: var(--dark) !important;
+  font-weight: 500 !important;
+}
+
+.table tbody tr td:first-child {
+  border-left: 1px solid #f1f5f9 !important;
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
+.table tbody tr td:last-child {
+  border-right: 1px solid #f1f5f9 !important;
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+
+/* Beautiful Dropdowns */
+.dropdown-menu {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+  padding: 8px !important;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+  font-weight: 600 !important;
+  color: var(--dark) !important;
+  transition: all 0.2s ease !important;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(99, 102, 241, 0.08) !important;
+  color: var(--primary) !important;
+}
+
+/* Badge Styles */
+.badge {
+  padding: 6px 12px !important;
+  font-weight: 600 !important;
+  border-radius: 20px !important;
+}
+
+/* Center Titles with Gradients */
+.section-title, .text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, #a21caf 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 800 !important;
+}
+
+/* Welcome profile trigger */
+.welcome-badge {
+  background: rgba(99, 102, 241, 0.1) !important;
+  padding: 6px 14px !important;
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  color: var(--primary) !important;
+}
